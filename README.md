@@ -4,7 +4,7 @@ A **Model Context Protocol (MCP) server** that gives AI coding agents structured
 
 Built with **FastMCP**, **Pydantic**, **SQLite**, and **BeautifulSoup** — designed for incremental scraping, typed query surfaces, and team-scoped agent workspaces.
 
-[![CI](https://github.com/originaldopey/dmb-mcp-server/actions/workflows/ci.yml/badge.svg)](https://github.com/originaldopey/dmb-mcp-server/actions/workflows/ci.yml)
+[![CI](https://github.com/OriginalDopey/dmb-mcp-server/actions/workflows/ci.yml/badge.svg)](https://github.com/OriginalDopey/dmb-mcp-server/actions/workflows/ci.yml)
 
 ## Highlights
 
