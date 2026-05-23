@@ -6,6 +6,20 @@ Built with **FastMCP**, **Pydantic**, **SQLite**, and **BeautifulSoup** — desi
 
 [![CI](https://github.com/OriginalDopey/dmb-mcp-server/actions/workflows/ci.yml/badge.svg)](https://github.com/OriginalDopey/dmb-mcp-server/actions/workflows/ci.yml)
 
+## About this project
+
+This is a **portfolio-grade MCP integration**: a real scraping pipeline wrapped in a small, testable Python package that agents can call through a standard protocol instead of ad-hoc scripts.
+
+**Problem:** League data on ImagineSports is spread across dozens of HTML pages. Agents need structured, cached answers — not repeated manual scraping.
+
+**Approach:**
+- Wrap a legacy scraper in a **typed package** (`src/dmb_mcp/`) with Pydantic models and a repository layer
+- Expose **6 consolidated MCP tools** and **11 read-only resources** (not 20+ micro-tools)
+- **Incremental refresh** with SQLite caching and offline HTML fixture tests
+- **Team scoping** via `DMB_ENTRY_TEAM_ID` for multi-league personal workflows
+
+**Stack:** Python 3.11 · FastMCP · SQLite · BeautifulSoup · pytest · ruff · GitHub Actions
+
 ## Highlights
 
 - **6 MCP tools** + **11 resources** — scrape, query, report, auth, and reference data without bloating agent context
@@ -19,7 +33,7 @@ Built with **FastMCP**, **Pydantic**, **SQLite**, and **BeautifulSoup** — desi
 Requires **Python 3.11+**.
 
 ```bash
-git clone https://github.com/originaldopey/dmb-mcp-server.git
+git clone https://github.com/OriginalDopey/dmb-mcp-server.git
 cd dmb-mcp-server
 python3.11 -m pip install -e ".[dev]"
 
