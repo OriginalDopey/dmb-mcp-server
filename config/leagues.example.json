@@ -1,0 +1,12 @@
+{
+  "leagues": [
+    {
+      "entry_team_id": "YOUR_ENTRY_TEAM_ID",
+      "display": "Example League",
+      "my_team_name": "My Team",
+      "key": "Example",
+      "active": true
+    }
+  ],
+  "active_entry_team_ids": ["YOUR_ENTRY_TEAM_ID"]
+}

@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+sbom.json
+
+# Secrets and local config
+.env
+.is_session
+config/leagues.json
+*.db
+*.sqlite
+*.sqlite3
+
+# OS
+.DS_Store

@@ -1,0 +1,38 @@
+{
+  "year": 2026,
+  "league_type": "standard",
+  "source": "DiamondMind/.cursor/skills/dmb-league-record-watch/reference-2026-standard-records.md",
+  "batting": {
+    "HR": {"record": "61", "holder": "Killebrew, Harmon (Phi)"},
+    "R": {"record": "162", "holder": "Mantle, Mickey (GN)"},
+    "RBI": {"record": "165", "holder": "Clark, Jack (SMD)"},
+    "BA": {"record": ".380", "holder": "Cobb, Ty (CA)"},
+    "OBP": {"record": ".462", "holder": "Williams, Ted (SSS)"},
+    "SLG": {"record": ".721", "holder": "Gehrig, Lou (PT)"},
+    "OPS": {"record": "1.174", "holder": "Gehrig, Lou (PT)"},
+    "RC": {"record": "177.11", "holder": "Gehrig, Lou (PT)"},
+    "H": {"record": "257", "holder": "Cobb, Ty (CA)"},
+    "BB": {"record": "151", "holder": "Williams, Ted (SoB)"},
+    "SB": {"record": "93", "holder": "Henderson, Rickey (V I)"},
+    "2B": {"record": "61", "holder": "Wagner, Honus (FOR)"},
+    "3B": {"record": "24", "holder": "Orr, Dave (BoB)"},
+    "GW RBI": {"record": "24", "holder": "Hafey, Chick (QCR)"},
+    "Hit streak": {"record": "38", "holder": "Collins, Eddie (ALL)"}
+  },
+  "pitching": {
+    "ERA": {"record": "1.68", "holder": "Seaver, Tom (WAL)"},
+    "W": {"record": "30", "holder": "Johnson, Walter (TBM)"},
+    "K": {"record": "376", "holder": "Johnson, Randy (ACE)"},
+    "SHO": {"record": "8", "holder": "Johnson, Randy (DOM)"},
+    "CG": {"record": "20", "holder": "Foster, Willie (OP)"},
+    "G": {"record": "103", "holder": "Stanley, Bob (SHO)"},
+    "IP": {"record": "356.1", "holder": "Johnson, Walter (TBM)"},
+    "SV": {"record": "45", "holder": "Burgmeier, Tom (SPS)"},
+    "K/9": {"record": "10.491", "holder": "Johnson, Randy (OP)"},
+    "BB/9": {"record": "1.217", "holder": "Peterson, Fritz (HMR)"},
+    "HR/9": {"record": ".182", "holder": "Batista, Miguel (BAY)"},
+    "WHIP": {"record": "0.91", "holder": "Foster, Willie (109)"},
+    "Holds": {"record": "31", "holder": "Adams, Mike (TAG)"},
+    "QS": {"record": "41", "holder": "Johnson, Randy (ACE)"}
+  }
+}
