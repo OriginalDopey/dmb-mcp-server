@@ -14,7 +14,7 @@
 
 ## In progress
 
-- [ ] GitHub Actions CI on `main` (requires `workflow` OAuth scope on push)
+- [x] GitHub Actions CI on `main` (pytest + ruff + SBOM artifact)
 - [ ] Broader test coverage (scraper orchestration, reference service)
 - [ ] `uv.lock` for fully reproducible CI installs
 

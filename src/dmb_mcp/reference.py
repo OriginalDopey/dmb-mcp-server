@@ -125,8 +125,7 @@ class ReferenceService:
             "ok": True,
             "source": "static_fallback",
             "note": (
-                "Live IS record boards require authenticated session; "
-                "using bundled thresholds."
+                "Live IS record boards require authenticated session; using bundled thresholds."
             ),
             "data": static,
             "errors": live["errors"],

@@ -29,7 +29,7 @@ This is a **portfolio-grade MCP integration**: a real scraping pipeline wrapped 
 | MCP server (tools + resources) | ✅ Working |
 | Offline parser tests | ✅ 9 HTML fixtures |
 | Repository / DB unit tests | ✅ In-memory SQLite |
-| GitHub Actions CI | 🔄 Workflow file included; green after push with `workflow` scope |
+| GitHub Actions CI | ✅ pytest + ruff + SBOM on push |
 | Integration / live scrape tests | 📋 Planned |
 
 > Not affiliated with ImagineSports. Requires your own session cookie for live scraping; tests run without credentials.

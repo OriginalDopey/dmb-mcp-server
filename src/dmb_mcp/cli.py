@@ -50,9 +50,7 @@ def cmd_init_team(args: argparse.Namespace) -> int:
                 "args": ["-m", "dmb_mcp.server"],
                 "env": {
                     "PYTHONPATH": str(pkg / "src"),
-                    "DMB_DB_PATH": str(
-                        Path(args.diamondmind_root) / "data" / "is_scout.db"
-                    ),
+                    "DMB_DB_PATH": str(Path(args.diamondmind_root) / "data" / "is_scout.db"),
                     "DMB_SESSION_PATH": str(Path(args.diamondmind_root) / ".is_session"),
                     "DMB_CONFIG_PATH": str(pkg / "config" / "leagues.json"),
                     "DMB_ENTRY_TEAM_ID": args.entry_team_id,
