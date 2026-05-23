@@ -12,6 +12,7 @@ htmlcov/
 .ruff_cache/
 .pytest_cache/
 sbom.json
+data/test_is_scout.db
 
 # Secrets and local config
 .env

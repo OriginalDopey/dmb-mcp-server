@@ -6,8 +6,6 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 
-DEFAULT_DIAMONDMIND = Path.home() / "Documents/CursonProjects/DiamondMind"
-
 
 @dataclass(frozen=True)
 class Settings:
@@ -23,14 +21,19 @@ class Settings:
 
     @classmethod
     def from_env(cls) -> Settings:
-        dm = Path(os.environ.get("DMB_DIAMONDMIND_ROOT", str(DEFAULT_DIAMONDMIND)))
-        pkg_root = Path(__file__).resolve().parents[2]
+        pkg_root = package_root()
+        data_dir = pkg_root / "data"
+        config_path = pkg_root / "config" / "leagues.json"
+        if not config_path.exists():
+            config_path = pkg_root / "config" / "leagues.example.json"
+
+        db_default = data_dir / "is_scout.db"
+        session_default = pkg_root / ".is_session"
+
         return cls(
-            db_path=Path(os.environ.get("DMB_DB_PATH", str(dm / "data" / "is_scout.db"))),
-            session_path=Path(os.environ.get("DMB_SESSION_PATH", str(dm / ".is_session"))),
-            config_path=Path(
-                os.environ.get("DMB_CONFIG_PATH", str(pkg_root / "config" / "leagues.json"))
-            ),
+            db_path=Path(os.environ.get("DMB_DB_PATH", str(db_default))),
+            session_path=Path(os.environ.get("DMB_SESSION_PATH", str(session_default))),
+            config_path=Path(os.environ.get("DMB_CONFIG_PATH", str(config_path))),
             entry_team_id=os.environ.get("DMB_ENTRY_TEAM_ID") or None,
         )
 

@@ -20,6 +20,20 @@ This is a **portfolio-grade MCP integration**: a real scraping pipeline wrapped 
 
 **Stack:** Python 3.11 · FastMCP · SQLite · BeautifulSoup · pytest · ruff · GitHub Actions
 
+## Status
+
+**v0.1 — showable, actively maturing.** Core MCP tools, scraper pipeline, and offline parser tests work end-to-end locally. See [docs/ROADMAP.md](docs/ROADMAP.md) for done / in-progress / planned.
+
+| Area | State |
+|------|--------|
+| MCP server (tools + resources) | ✅ Working |
+| Offline parser tests | ✅ 9 HTML fixtures |
+| Repository / DB unit tests | ✅ In-memory SQLite |
+| GitHub Actions CI | 🔄 Workflow file included; green after push with `workflow` scope |
+| Integration / live scrape tests | 📋 Planned |
+
+> Not affiliated with ImagineSports. Requires your own session cookie for live scraping; tests run without credentials.
+
 ## Highlights
 
 - **6 MCP tools** + **11 resources** — scrape, query, report, auth, and reference data without bloating agent context
@@ -113,7 +127,7 @@ python3.11 -m pytest
 python3.11 -m ruff check src tests/
 ```
 
-See [docs/architecture.md](docs/architecture.md) for scrape tiers and module layout.
+See [docs/architecture.md](docs/architecture.md) for scrape tiers and module layout. See [docs/ROADMAP.md](docs/ROADMAP.md) for project status.
 
 ## License
 
