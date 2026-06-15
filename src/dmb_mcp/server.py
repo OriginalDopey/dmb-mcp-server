@@ -56,7 +56,7 @@ async def scrape(
     mode: ScrapeMode = "refresh",
     ctx: Context | None = None,
 ) -> ScrapeResult:
-    """Scrape one league. Modes: full, refresh (incremental), tracker (standings only)."""
+    """Scrape one league. Modes: full, standard (refresh + leaderboards/H2H), refresh, tracker."""
     app = _ctx_app(ctx)  # type: ignore[arg-type]
     target = app.resolve_entry_team_id(entry_team_id)
 
@@ -108,7 +108,9 @@ async def query(
     options: dict | None = None,
     ctx: Context | None = None,
 ) -> str:
-    """Query cached DB data. Types: standings, roster, financials, rules, transactions, player."""
+    """Query cached DB data. Types: standings, roster, financials, rules, transactions,
+    player, leaderboards, fielding_leaders, team_vs_team, league_transactions, injuries,
+    splits, ratings, fielding_stats, trade_view."""
     app = _ctx_app(ctx)  # type: ignore[arg-type]
     repo = Repository(app.db)
     opts = options or {}
@@ -169,6 +171,15 @@ async def query(
         else:
             rows = repo.batting_splits(team_id, split_type=split_arg)
         return json.dumps(rows, indent=2)
+    if type == "ratings":
+        team_id = app.resolve_team_id(target_id)
+        return json.dumps(repo.team_ratings(team_id), indent=2)
+    if type == "fielding_stats":
+        team_id = app.resolve_team_id(target_id)
+        return json.dumps(repo.team_fielding_stats(team_id), indent=2)
+    if type == "trade_view":
+        league_id = app.resolve_league_id(target_id)
+        return json.dumps(repo.trade_view(league_id), indent=2)
     raise ValueError(f"Unknown query type: {type}")
 
 

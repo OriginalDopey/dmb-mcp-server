@@ -60,20 +60,24 @@ class ExtendedScraper:
         total = 0
         errors: list[str] = []
 
-        if mode in ("refresh", "full"):
+        if mode in ("refresh", "full", "standard"):
             total += self._scrape_injuries(entry_team_id, league_id, teams, log)
             total += self._scrape_league_transactions(entry_team_id, league_id, log)
             if progress:
                 progress(0.4, "Injuries and league transactions refreshed")
 
-        if mode == "full":
+        if mode in ("full", "standard"):
             total += self._scrape_leaderboards(entry_team_id, league_id, log, errors)
             total += self._scrape_fielding_leaders(entry_team_id, league_id, log, errors)
             total += self._scrape_team_vs_team(entry_team_id, league_id, log, errors)
             total += self._scrape_trade_view(entry_team_id, league_id, log, errors)
+            if progress:
+                progress(0.8, "Extended standard scrape pages complete")
+
+        if mode == "full":
             total += self._scrape_splits(entry_team_id, league_id, teams, log)
             if progress:
-                progress(0.8, "Extended full scrape pages complete")
+                progress(0.9, "Extended full scrape splits complete")
 
         self.db.commit()
         return {"records": total, "errors": errors}

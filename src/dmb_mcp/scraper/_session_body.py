@@ -20,20 +20,26 @@ class ISSession:
         self._soup_cache.clear()
 
     def _set_cookie(self, cookie_str):
-        """Set session cookie. Accepts raw cookie header or just the value."""
+        """Set ImagineSports auth cookie (isuserVID). Accepts header, name=value, or bare token."""
         cookie_str = cookie_str.strip()
-        if "=" in cookie_str and not cookie_str.startswith("session="):
-            # Full cookie header: parse all cookies
+        if ";" in cookie_str:
             for part in cookie_str.split(";"):
                 part = part.strip()
                 if "=" in part:
                     name, val = part.split("=", 1)
                     self.session.cookies.set(name.strip(), val.strip())
-        else:
-            # Just a session value or session=value
-            if cookie_str.startswith("session="):
-                cookie_str = cookie_str[8:]
-            self.session.cookies.set("session", cookie_str)
+            return
+        if cookie_str.startswith("isuserVID="):
+            self.session.cookies.set("isuserVID", cookie_str[10:])
+            return
+        if cookie_str.startswith("session="):
+            self.session.cookies.set("isuserVID", cookie_str[8:])
+            return
+        if "=" in cookie_str:
+            name, val = cookie_str.split("=", 1)
+            self.session.cookies.set(name.strip(), val.strip())
+            return
+        self.session.cookies.set("isuserVID", cookie_str)
 
     def save_cookie(self, cookie_str):
         """Save cookie to disk for future use."""

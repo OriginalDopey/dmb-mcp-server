@@ -201,6 +201,44 @@ class Repository:
             ).fetchall()
         return [dict(r) for r in rows]
 
+    def team_ratings(self, team_id: str) -> dict[str, list[dict[str, Any]]]:
+        batters = self.db.execute(
+            "SELECT * FROM batter_ratings WHERE team_id = ? ORDER BY player",
+            [team_id],
+        ).fetchall()
+        pitchers = self.db.execute(
+            "SELECT * FROM pitcher_ratings WHERE team_id = ? ORDER BY player",
+            [team_id],
+        ).fetchall()
+        fielders = self.db.execute(
+            "SELECT * FROM fielder_ratings WHERE team_id = ? ORDER BY player",
+            [team_id],
+        ).fetchall()
+        return {
+            "batters": [dict(r) for r in batters],
+            "pitchers": [dict(r) for r in pitchers],
+            "fielders": [dict(r) for r in fielders],
+        }
+
+    def team_fielding_stats(self, team_id: str) -> list[dict[str, Any]]:
+        rows = self.db.execute(
+            "SELECT * FROM fielding_stats WHERE team_id = ? ORDER BY player",
+            [team_id],
+        ).fetchall()
+        return [dict(r) for r in rows]
+
+    def trade_view(self, league_id: str) -> list[dict[str, Any]]:
+        rows = self.db.execute(
+            """
+            SELECT status, proposing_team, detail_text, scraped_at
+            FROM trade_view
+            WHERE league_id = ?
+            ORDER BY id
+            """,
+            [league_id],
+        ).fetchall()
+        return [dict(r) for r in rows]
+
     def league_summary_text(self, league_id: str) -> str:
         standings = self.standings(league_id)
         lines = [f"Standings ({len(standings)} teams):"]

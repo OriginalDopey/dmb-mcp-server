@@ -1,0 +1,82 @@
+---
+description: dmb-mcp-server package conventions, scrape modes, and shared DB contract
+globs: "src/**/*.py"
+alwaysApply: false
+---
+
+# dmb-mcp-server
+
+MCP server for Diamond Mind Baseball league intelligence on ImagineSports. Sibling repo to DiamondMind; shares `DiamondMind/data/is_scout.db`.
+
+## Layout
+
+| Path | Role |
+|------|------|
+| `src/dmb_mcp/server.py` | FastMCP entry — 6 tools, 11 resources |
+| `src/dmb_mcp/cli.py` | CLI: `auth`, `scrape`, `init-team` |
+| `src/dmb_mcp/scraper/` | HTTP session, league scrape orchestration, extended pages |
+| `src/dmb_mcp/db/` | SQLite wrapper, `Repository` read API, extended upserts |
+| `src/dmb_mcp/parsers/` | HTML parsers (legacy + extended) |
+| `migrations/` | Schema SQL — new tables/columns go here |
+| `config/leagues.json` | League registry (gitignored) |
+| `config/leagues.example.json` | Public template |
+
+## Legacy `exec()` body files — hands off unless necessary
+
+These are extracted from DiamondMind's `is_league_scraper.py` and loaded via `exec()`. Ruff excludes them.
+
+- `src/dmb_mcp/db/_database_body.py`
+- `src/dmb_mcp/scraper/_session_body.py`
+- `src/dmb_mcp/scraper/_league_scraper_body.py`
+- `src/dmb_mcp/scraper/parsers/_parsers_body.py`
+
+Prefer editing thin wrapper modules (`league_scraper.py`, `session.py`, `extended_scrape.py`, `repository.py`) over the body files. Long-term goal: normal imports (see `docs/ROADMAP.md`).
+
+## Scrape modes
+
+| Mode | Use |
+|------|-----|
+| `full` | Everything: ratings, psimstats, leaderboards, splits, H2H, trade view |
+| `standard` | refresh + leaderboards, fielding leaders, H2H, trade view, injuries (no psimstats/splits) |
+| `refresh` | Incremental standings + stats/rosters/transactions; injuries + league tx |
+| `tracker` | Standings history + scouting + roster + team stats only (Pi tracker path) |
+
+## Environment (set in DiamondMind `.cursor/mcp.json`)
+
+| Variable | Purpose |
+|----------|---------|
+| `DMB_DB_PATH` | SQLite path (default: DiamondMind `data/is_scout.db`) |
+| `DMB_SESSION_PATH` | ImagineSports `isuserVID` cookie file |
+| `DMB_CONFIG_PATH` | `config/leagues.json` |
+| `DMB_ENTRY_TEAM_ID` | Team workspace scoping for `mine` aliases |
+
+## Shared DB contract
+
+- Writes go to the same SQLite file DiamondMind scripts and the Season Tracker use.
+- Schema changes require a new file in `migrations/` and coordinated updates in DiamondMind if the tracker reads those tables.
+- Do not rename tables or columns without checking `scripts/build_tracker_data.py` and `Repository`.
+
+## CI / local checks
+
+Before committing:
+
+```bash
+ruff check src tests && ruff format --check src tests
+pytest --cov=dmb_mcp
+```
+
+CI runs on push to `main` and PRs (`.github/workflows/ci.yml`).
+
+## Tests
+
+- Offline HTML fixtures: `tests/fixtures/html/`
+- Parser and repository unit tests: `tests/unit/`
+- No live ImagineSports integration tests — use fixtures only
+- `pytest-asyncio` for server tests
+
+## Do NOT
+
+- Commit `config/leagues.json` or session cookies
+- Add scrape endpoints without updating scrape-mode docs in `server.py` / `docs/architecture.md`
+- Expose new `query` types without a matching `Repository` method and a unit test
+- Change `request_delay` (1.5s) without understanding IS rate-limit risk

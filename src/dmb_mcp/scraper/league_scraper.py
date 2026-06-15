@@ -13,7 +13,7 @@ from dmb_mcp.scraper.parsers import _load_parsers
 from dmb_mcp.scraper.session import ISSession
 from dmb_mcp.settings import Settings
 
-ScrapeMode = Literal["full", "refresh", "tracker"]
+ScrapeMode = Literal["full", "standard", "refresh", "tracker"]
 
 
 def _load_league_scraper_class(settings: Settings) -> type:
